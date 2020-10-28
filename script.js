@@ -176,6 +176,7 @@ console.log(ampBug);
 // How do you console log a string with all the values of an array all at one time (console logged all at once/one time)?
 // Spread operator? Destructuring? Iterate all the elements of an array?
 
+// Basic ES6 
 const printForecast = temps => {
   const tempStrings = [`...`];
 
@@ -196,22 +197,6 @@ printForecast([12, 5, -5, 0, 4]);
 const printForecast6 = temps => {
   const tempStrings1 = [`...`];
 
-  const tempStrings2 = temps.map(function (temp) {
-    return `${temp}*C in ${temps.indexOf(temp) + 1} days ...`;
-  });
-
-  const tempStrings = [...tempStrings1, ...tempStrings2];
-
-  console.log(...tempStrings);
-};
-
-printForecast6([17, 21, 23]);
-printForecast6([12, 5, -5, 0, 4]);
-
-// Advanced ES6 v2
-const printForecast6v2 = temps => {
-  const tempStrings1 = [`...`];
-
   const tempStrings2 = temps.map(
     temp => `${temp}*C in ${temps.indexOf(temp) + 1} days ...`
   );
@@ -221,5 +206,5 @@ const printForecast6v2 = temps => {
   console.log(...tempStrings);
 };
 
-printForecast6v2([17, 21, 23]);
-printForecast6v2([12, 5, -5, 0, 4]);
+printForecast6([17, 21, 23]);
+printForecast6([12, 5, -5, 0, 4]);
