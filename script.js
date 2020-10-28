@@ -1,7 +1,7 @@
 // Remember, we're gonna use strict mode in all scripts now!
 'use strict';
 
-/*
+/* 
 // Problem:
 // "Given an array of temperatures of one day, calculate the temperatures amplitude. Keep in mind that sometimes there might be a senor error"
 
@@ -78,30 +78,52 @@ const calcTempAmplitudeNew = function (t1, t2) {
   };
   
   const ampNew = calcTempAmplitudeNew([3,5,1], [9,0,5]);
-  console.log(ampNew);
+  console.log(ampNew); */
 
+/* 
 // ES6 Version
 const calcTempAmplitudeNew6 = function (t1, t2) {
-    const temps = [...t1, ...t2];
-    console.log(temps);
+  const temps = [...t1, ...t2];
+  console.log(temps);
 
-    let max = temps[0];
-    let min = temps[0];
-  
-    temps.forEach(temp => {
-      if (typeof temp !== 'error');
-      if (temp > max) max = temp;
-      if (temp < min) min = temp;
-    });
+  let max = temps[0];
+  let min = temps[0];
+
+  temps.forEach(temp => {
+    if (typeof temp !== 'error');
+    if (temp > max) max = temp;
+    if (temp < min) min = temp;
+  });
+  console.log(max, min);
+  return max - min;
+};
+
+const ampNew6 = calcTempAmplitudeNew6([3, 5, 1], [9, 0, 5]);
+console.log(ampNew6);
+
+// ES6 Revised Version using reduce((accumulator, currentValue), accumulator = initValue); FAIL
+const calcTempAmplitudeNew6v2 = function (t1, t2) {
+  const temps = [...t1, ...t2];
+  console.log(temps);
+
+  let max, min, amp;
+
+  amp = temps.reduce((accumulator, curTemp) => {
+    
+    if (typeof curTemp !== 'error');
+    if (curTemp > accumulator) max = curTemp;
+    if (curTemp < accumulator) min = curTemp;
     console.log(max, min);
     return max - min;
-  };
-  
-  const ampNew6 = calcTempAmplitudeNew6([3,5,1], [9,0,5]);
-  console.log(ampNew6);
-*/
+  }, temps[0]);
+  return amp;
+};
 
-/* const measureKelvin = function () {
+const ampNew6v2 = calcTempAmplitudeNew6v2([3, 5, 1], [9, 0, 5]);
+console.log(ampNew6v2);
+ */
+/*
+const measureKelvin = function () {
   const measurement = {
     type: 'temp',
     unit: 'celsius',
@@ -144,9 +166,60 @@ const calcTempAmplitudeBug = function (t1, t2) {
 
 const ampBug = calcTempAmplitudeBug([3, 5, 1], [9, 4, 5]);
 // A) IDENTIFY
-console.log(ampBug); */
+console.log(ampBug); 
+*/
 
 /////////////////////////////
 //// CODING CHALLENGE #1 ////
 /////////////////////////////
 
+// How do you console log a string with all the values of an array all at one time (console logged all at once/one time)?
+// Spread operator? Destructuring? Iterate all the elements of an array?
+
+const printForecast = temps => {
+  const tempStrings = [`...`];
+
+  for (let i = 0; i < temps.length; i++) {
+    tempStrings.push(
+      `${temps[i]}*C in ${temps.indexOf(temps[i]) + 1} days ...`
+    );
+  }
+
+  console.log(...tempStrings);
+};
+
+printForecast([17, 21, 23]);
+printForecast([12, 5, -5, 0, 4]);
+
+// Advanced ES6
+// What should I use? Map, .forEach, or .map?
+const printForecast6 = temps => {
+  const tempStrings1 = [`...`];
+
+  const tempStrings2 = temps.map(function (temp) {
+    return `${temp}*C in ${temps.indexOf(temp) + 1} days ...`;
+  });
+
+  const tempStrings = [...tempStrings1, ...tempStrings2];
+
+  console.log(...tempStrings);
+};
+
+printForecast6([17, 21, 23]);
+printForecast6([12, 5, -5, 0, 4]);
+
+// Advanced ES6 v2
+const printForecast6v2 = temps => {
+  const tempStrings1 = [`...`];
+
+  const tempStrings2 = temps.map(
+    temp => `${temp}*C in ${temps.indexOf(temp) + 1} days ...`
+  );
+
+  const tempStrings = [...tempStrings1, ...tempStrings2];
+
+  console.log(...tempStrings);
+};
+
+printForecast6v2([17, 21, 23]);
+printForecast6v2([12, 5, -5, 0, 4]);
