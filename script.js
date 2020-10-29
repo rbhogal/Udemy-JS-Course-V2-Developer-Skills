@@ -101,11 +101,12 @@ const calcTempAmplitudeNew6 = function (t1, t2) {
 const ampNew6 = calcTempAmplitudeNew6([3, 5, 1], [9, 0, 5]);
 console.log(ampNew6);
 */
-
+/* 
 // ES6 Revised Version using reduce((accumulator, currentValue), accumulator = initValue) & acc min and max in an array
 function calcTempAmplitudeNew6v2(t1, t2) {
   const temps = [...t1, ...t2];
   const amp = temps.reduce((acc, curTemp) => {
+    if (typeof curTemp !== 'error');
     acc[0] = acc[0] === undefined || curTemp > acc[0] ? curTemp : acc[0];
     acc[1] = acc[1] === undefined || curTemp < acc[1] ? curTemp : acc[1];
     return acc;
@@ -117,7 +118,7 @@ function calcTempAmplitudeNew6v2(t1, t2) {
 
 const ampNew6v2 = calcTempAmplitudeNew6v2([3, 5, 1], [9, 0, 5]);
 console.log(ampNew6v2);
-
+ */
 /*
 // ES6 v3 using Math.max and Math.min
 const calcTempAmplitudeNew6v3 = function (t1, t2) {
@@ -184,8 +185,9 @@ console.log(ampBug);
 
 // How do you console log a string with all the values of an array all at one time (console logged all at once/one time)?
 // Spread operator? Destructuring? Iterate all the elements of an array?
-/* 
-// Basic ES6 
+
+/*
+// Basic ES6 w/spread operator
 const printForecast = temps => {
   const tempStrings = [`...`];
 
@@ -217,19 +219,46 @@ const printForecast6 = temps => {
 
 printForecast6([17, 21, 23]);
 printForecast6([12, 5, -5, 0, 4]);
+*/
 
+// Jona's Solution
 
-// Revised ES6 version with Jonas' Solution 
-// find a way to iterate a string without a for loop and using more advanced shit 
+// 1) Understand the problem
+// - Array transformed into string, seperated by ellipses ...
+// - What is X days? Answer: index + 1
+
+// 2) Breaking up into sub-problems
+// - Tranform array into a string
+// - Transform each element to string with C*
+// - String needs to contain the day (index + 1)
+// - Add ellipses between elements and end of string
+
+const data1 = [17, 21, 23];
+const data2 = [12, 5, -5, 0, 4];
+
+const printForecast = function (arr) {
+  let str = '';
+  for (let i = 0; i < arr.length; i++) {
+    str = str + `${arr[i]}*C in ${i + 1} days ...`;
+  }
+  console.log(`... ` + str);
+};
+
+printForecast(data1);
+printForecast(data2);
+
+// Revised ES6 version with Jonas' Solution
+// find a way to iterate a string without a for loop and using more advanced shit
 const printForecast6v2 = temps => {
-  const tempStrings = '';
-  const tempStrings.forEach()
+  let tempStrings = '';
 
-  const tempStrings = [...tempStrings1, ...tempStrings2];
+  temps.forEach(curTemp => {
+    let day = temps.indexOf(curTemp) + 1;
+    tempStrings += `${curTemp}*C in ${day} days ...`;
+  });
 
-  console.log(...tempStrings);
+  console.log('... ' + tempStrings);
 };
 
 printForecast6v2([17, 21, 23]);
 printForecast6v2([12, 5, -5, 0, 4]);
- */
