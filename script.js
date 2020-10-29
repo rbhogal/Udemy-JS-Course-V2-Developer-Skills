@@ -80,7 +80,7 @@ const calcTempAmplitudeNew = function (t1, t2) {
   const ampNew = calcTempAmplitudeNew([3,5,1], [9,0,5]);
   console.log(ampNew); */
 
-/* 
+/*
 // ES6 Version
 const calcTempAmplitudeNew6 = function (t1, t2) {
   const temps = [...t1, ...t2];
@@ -100,28 +100,37 @@ const calcTempAmplitudeNew6 = function (t1, t2) {
 
 const ampNew6 = calcTempAmplitudeNew6([3, 5, 1], [9, 0, 5]);
 console.log(ampNew6);
+*/
 
-// ES6 Revised Version using reduce((accumulator, currentValue), accumulator = initValue); FAIL
-const calcTempAmplitudeNew6v2 = function (t1, t2) {
+// ES6 Revised Version using reduce((accumulator, currentValue), accumulator = initValue) & acc min and max in an array
+function calcTempAmplitudeNew6v2(t1, t2) {
   const temps = [...t1, ...t2];
-  console.log(temps);
-
-  let max, min, amp;
-
-  amp = temps.reduce((accumulator, curTemp) => {
-    
-    if (typeof curTemp !== 'error');
-    if (curTemp > accumulator) max = curTemp;
-    if (curTemp < accumulator) min = curTemp;
-    console.log(max, min);
-    return max - min;
-  }, temps[0]);
-  return amp;
-};
+  const amp = temps.reduce((acc, curTemp) => {
+    acc[0] = acc[0] === undefined || curTemp > acc[0] ? curTemp : acc[0];
+    acc[1] = acc[1] === undefined || curTemp < acc[1] ? curTemp : acc[1];
+    return acc;
+  }, []);
+  const [max, min] = amp;
+  console.log(max, min);
+  return max - min;
+}
 
 const ampNew6v2 = calcTempAmplitudeNew6v2([3, 5, 1], [9, 0, 5]);
 console.log(ampNew6v2);
- */
+
+/*
+// ES6 v3 using Math.max and Math.min
+const calcTempAmplitudeNew6v3 = function (t1, t2) {
+  const temps = [...t1, ...t2];
+  const max = Math.max(...temps);
+  const min = Math.min(...temps);
+  return max - min; 
+};
+
+const ampNew6v3 = calcTempAmplitudeNew6v3([3, 5, 1], [9, 0, 5]);
+console.log(ampNew6v3);
+*/
+
 /*
 const measureKelvin = function () {
   const measurement = {
@@ -175,7 +184,7 @@ console.log(ampBug);
 
 // How do you console log a string with all the values of an array all at one time (console logged all at once/one time)?
 // Spread operator? Destructuring? Iterate all the elements of an array?
-
+/* 
 // Basic ES6 
 const printForecast = temps => {
   const tempStrings = [`...`];
@@ -208,3 +217,19 @@ const printForecast6 = temps => {
 
 printForecast6([17, 21, 23]);
 printForecast6([12, 5, -5, 0, 4]);
+
+
+// Revised ES6 version with Jonas' Solution 
+// find a way to iterate a string without a for loop and using more advanced shit 
+const printForecast6v2 = temps => {
+  const tempStrings = '';
+  const tempStrings.forEach()
+
+  const tempStrings = [...tempStrings1, ...tempStrings2];
+
+  console.log(...tempStrings);
+};
+
+printForecast6v2([17, 21, 23]);
+printForecast6v2([12, 5, -5, 0, 4]);
+ */
